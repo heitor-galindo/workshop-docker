@@ -1,0 +1,52 @@
+{
+	"id": "service-basic-api-service",
+	"cpus": 4.1,
+	"disk": 2048,
+	"instances": 1,
+	"mem": 32576,
+	"resourceLimits": {
+ 		"cpus": 8.3,
+ 		"mem": 38768
+	},
+	"networks": [
+		{
+			"mode": "container/bridge"
+		}
+	],
+	"container": {
+		"portMappings": [
+			{
+				"containerPort": 5001,
+				"labels": {
+					"VIP_0": "/service-basic-api-service:5001"
+				}
+			}
+		],
+		"type": "DOCKER",
+		"volumes": [
+			{
+				"containerPath": "/persistent-data",
+				"mode": "RW",
+				"external": {
+					"name": "basic-api-volume",
+					"provider": "dvdi",
+					"options": {
+						"dvdi/driver": "rexray"
+					}
+				}
+			}
+		],
+		"docker": {
+			"image": "service-basic-api-service:0.0.1-SNAPSHOT",
+			"forcePullImage": true
+		}
+	},
+	"fetch": [
+		{
+			"uri": "file:///etc/private-docker.tar.gz"
+		}
+	],
+	"env": {
+		"POSTGRES_DATABASE": "personal-lending"
+	}
+}
