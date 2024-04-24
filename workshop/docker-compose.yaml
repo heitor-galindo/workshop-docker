@@ -1,0 +1,15 @@
+services:
+  basic-api:
+    build: .
+    image: basic-image:0.0.2-SNAPSHOT
+    container_name: basic-api
+    environment:
+      - POSTGRES_DATABASE=personal-lending
+    ports:
+      - 8001:5001
+    volumes:
+      - ./src:/src
+      - basic-api-volume:/persistent-data
+
+volumes:
+  basic-api-volume:
